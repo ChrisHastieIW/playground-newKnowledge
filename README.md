@@ -1,2 +1,2 @@
 # playground-newKnowledge
-This is a description
+This is a new and improved description
