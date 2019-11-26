@@ -1,6 +1,18 @@
+# This Python script can be used to scrape the website for Tableau Conference EU 2019
+# The intention is to create a json file containing data for every session taking place
+
+# The first section of this script explains some of the logic behind the commands we are doing
+# The second part (after ##########) is the script to actually scrape the data
+
+# If a package does not import, it may require installing.
+# Open a command prompt and use pip install to install a package, for example:
+# pip install requests
+# pip install bs4
 
 import requests
 import urllib.request
+import time
+import re
 from bs4 import BeautifulSoup
 import json
 
@@ -128,6 +140,10 @@ for session in soup.find_all('div', class_='accordion__item') :
 # Unfortunately this only reaches the first page!
 len(sessionsList)
 
+# The URL may always default to the first page, however there are links to other pages at the bottom.
+# We identify these links first, and can spot them near the bottom of this code.
+soup.body.contents[5]
+
 # We can isolate this by finding all ul tags where the class == 'pager'
 soup.find_all('ul', class_='pager')
 
@@ -183,6 +199,7 @@ for currentLink in links :
 
         sessionsList.append(sessionData)
 
+# View length of sessionList
 len(sessionsList)
 
 with open(r'Web Scraping/TC19 Sessions Output.json', 'w') as outfile:
@@ -190,5 +207,3 @@ with open(r'Web Scraping/TC19 Sessions Output.json', 'w') as outfile:
 
 
 #####################################################################################################################################
-
-
